@@ -1,7 +1,9 @@
 
 <% if user_signed_in?%>
-    <h1>Hello,<%= current_user.email %> </h1><br>
-      <%= link_to'Articles List',articles_path(kothariji: 3)%>
+
+
+    <h1>Welcome,<%= current_user.email %> </h1><br>
+      <%= link_to'Articles List',articles_path%>
 
 <% else %>
 <h1>Hello! How are you?</h1> 

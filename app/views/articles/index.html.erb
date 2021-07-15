@@ -1,42 +1,56 @@
-<h1>Hello ,This is Your First page</h1>
+<h1>Hello  :) </h1>
 
 
-
-<%= link_to 'New article', new_article_path %>
-
-<h2> Your List </h2>
+<h2> Your Lists </h2>
 <style>
     table,th,td{
       border:1px solid black;
       background-color: lightblue;
+      
     }
-    
+   
 </style>
 <body>  
 
-<table style="width:80%">
+<table style="width:80%;">
 <thead>
+
     <tr>
       <th>ID</th>
-      <th>Title</th> |
+      <th>Title</th> 
       <th>Text</th>
       <th>Action</th>
+      <th>Vote</th>
     </tr>
 </thead>
+<tbody>
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.id %></td>
       <td><%= article.title %></td>
        <td><%= article.text %></td>
      
-      <td><%= link_to'Show',article_path(id: article.id), style:"text-decoration:none;"%> |
+      <td><%= link_to 'New article', new_article_path ,style:"text-decoration:none;" %> | <%= link_to 'Show',article_path(id: article.id), style:"text-decoration:none;"%> |
       <%= link_to 'Edit',edit_article_path(article),style:"text-decoration:none;"%> |
-      <%= link_to 'Delete', article_path(article),style:"text-decoration:none;", method: :delete,
-                                                       data: { confirm: 'Are you sure?' } %></td>
+      <%= link_to 'Delete', article_path(article),style:"text-decoration:none;",method: :delete,
+                                                       data: { confirm: 'Are you sure?'} %></td>
+
+      <td> 
+      
+        <% if current_user.voted_for? article%>
+        <%= link_to 'dislike',dislike_article_path(article), method: :put  %>
+
+         
+
+        <% else %>
+        <%= link_to 'like', like_article_path(article), method: :put %>
+
+        <% end %><%= article.get_upvotes.size %>
+      </td>
     </tr> 
     
   <%end%>
-
+</tbody>
 </table>
  
 </body>

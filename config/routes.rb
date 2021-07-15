@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   resources  :articles do
+    member do
+      put "like" => "articles#vote"
+      put "dislike" => "articles#downvote"
+    end
     resources :comments
   end
   devise_for :users
